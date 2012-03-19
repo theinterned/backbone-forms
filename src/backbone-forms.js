@@ -1384,12 +1384,15 @@
           key = this.key,
           nestedModel = this.schema.model,
           nestedModelSchema = (nestedModel).prototype.schema;
-
+      if(_(data.toJSON).isFunction()) {
+        data = data.toJSON();
+      }
       this.form = new Form({
         schema: nestedModelSchema,
         model: new nestedModel(data),
         idPrefix: this.id + '_'
       });
+      console.log(this, new nestedModel(), this.form);
 
       //Render form
       this.$el.html(this.form.render().el);
